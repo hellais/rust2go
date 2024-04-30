@@ -119,6 +119,10 @@ impl Builder<PathBuf> {
     fn build_go(go_src: &Path, binding_name: &str, link: LinkType, copy_lib: &CopyLib) {
         let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
         let mut go_build = Command::new("go");
+        println!("cargo:warning=ENV VARS");
+        for (key, value) in env::vars() {
+            println!("cargo:warning={}: {}", key, value);
+        }
         go_build
             .env("GO111MODULE", "on")
             .current_dir(go_src)
